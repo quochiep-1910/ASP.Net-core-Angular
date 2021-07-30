@@ -31,7 +31,7 @@ namespace API.Controllers
         public ActionResult<IEnumerable<AppUser>> GetUsers()
         {
             var a = _Context.Users.ToList();
-
+            
             return a;
         }
 
