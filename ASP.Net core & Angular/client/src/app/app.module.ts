@@ -1,3 +1,4 @@
+import { SharedModule } from './_modules/shared.module';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -15,6 +16,7 @@ import { MemberListComponent } from './members/member-list/member-list.component
 import { MemberDetailComponent } from './members/member-detail/member-detail.component';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,7 @@ import { MessagesComponent } from './messages/messages.component';
     MemberDetailComponent,
     ListsComponent,
     MessagesComponent,
+    
   
   ],
 imports: [
@@ -36,7 +39,7 @@ imports: [
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot(),
+   SharedModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
