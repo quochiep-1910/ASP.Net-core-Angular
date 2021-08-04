@@ -12,34 +12,44 @@ using System.Threading.Tasks;
 using API.DTO;
 using API.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using API.Interfaces.IRepository;
+using AutoMapper;
 
 namespace API.Controllers
 {
+    [Authorize]
     public class AccountController : BaseController
     {
-        private readonly DataContext _Context;
-        private readonly ITokenService _tokenService;
 
-        public AccountController(DataContext Context, ITokenService tokenService)
+        private readonly ITokenService _tokenService;
+        private readonly IUserRepository _userRepository;
+        private readonly DataContext _Context;
+        private readonly IMapper _mapper;
+
+        public AccountController(IUserRepository userRepository, DataContext context,
+         ITokenService tokenService, IMapper mapper)
         {
-            _Context = Context;
+            _mapper = mapper;
+            _Context = context;
+            _userRepository = userRepository;
             _tokenService = tokenService;
         }
 
         [HttpGet]
-        [AllowAnonymous]
-        public ActionResult<IEnumerable<AppUser>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers()
         {
-            var a = _Context.Users.ToList();
-            
-            return a;
+            var user = await _userRepository.GetUsersAsync();
+            var usersToReturn = _mapper.Map<IEnumerable<MemberDTO>>(user);
+
+            return Ok(usersToReturn);
         }
 
         [HttpGet("{id}")]
-        [Authorize]
-        public ActionResult<AppUser> GetUsers(int id)
+        public async Task<ActionResult<MemberDTO>> GetUsers(int id)
         {
-            return _Context.Users.Find(id);
+            var user = await _userRepository.GetUserByIdAsync(id);
+            var usermapper = _mapper.Map<MemberDTO>(user);
+            return Ok(usermapper);
         }
 
         [HttpPost("register")]
@@ -64,6 +74,7 @@ namespace API.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<ActionResult<UserDTO>> Login(LoginDTO login)
         {
             var user = await _Context.Users
@@ -82,6 +93,7 @@ namespace API.Controllers
                 UserName = user.UserName,
                 Token = _tokenService.CreateToken(user)
             };
+
         }
 
         private async Task<bool> UserExists(string username)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Entities
 {
@@ -12,5 +13,11 @@ namespace API.Entities
       
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
+        public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime LastActive { get; set; } = DateTime.Now;
+        public DateTime DayOfBirth{get;set;}
+        public ICollection<Photo> Photos {get;set;}
+
+
     }
 }

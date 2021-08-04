@@ -10,7 +10,7 @@ namespace API.DTO
         [Required]
         [StringLength(8, MinimumLength = 4)]
         public string Password { get; set; }
-        
-        
+
+
     }
 }

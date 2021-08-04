@@ -48,6 +48,7 @@
     "target": "es2015",
     "module": "es2020",
     "lib": [
+      "ES2021",
       "es2018",
       "dom"
     ]
