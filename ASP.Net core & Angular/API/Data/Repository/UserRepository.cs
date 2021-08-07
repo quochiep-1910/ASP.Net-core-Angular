@@ -13,25 +13,25 @@ namespace API.Data.Repository
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _context;
-         private readonly IMapper _mapper;
-        public UserRepository(DataContext context,IMapper mapper)
+        private readonly IMapper _mapper;
+
+        public UserRepository(DataContext context, IMapper mapper)
         {
             _context = context;
-             _mapper = mapper;
+            _mapper = mapper;
         }
-
 
         public async Task<MemberDTO> GetMemberAsync(string username)
         {
-           return await _context.Users
-                .Where(x => x.UserName == username)
-                .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync();
+            return await _context.Users
+                 .Where(x => x.UserName == username)
+                 .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
+                 .SingleOrDefaultAsync();
         }
 
         public async Task<IEnumerable<MemberDTO>> GetMembersAsync()
         {
-            return await _context.Users 
+            return await _context.Users
                 .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
                 .ToListAsync();
         }
@@ -43,12 +43,12 @@ namespace API.Data.Repository
 
         public async Task<AppUser> GetUserByUsernameAsync(string username)
         {
-            return await _context.Users.SingleOrDefaultAsync(x => x.UserName == username);
+            return await _context.Users.Include(p => p.Photos).SingleOrDefaultAsync(x => x.UserName == username);
         }
 
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
         {
-            return await _context.Users.Include(p=>p.Photos).ToArrayAsync();
+            return await _context.Users.Include(p => p.Photos).ToArrayAsync();
         }
 
         public async Task<bool> SaveAllAsync()
@@ -56,7 +56,7 @@ namespace API.Data.Repository
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public  void Update(AppUser user)
+        public void Update(AppUser user)
         {
             _context.Entry(user).State = EntityState.Modified;
         }

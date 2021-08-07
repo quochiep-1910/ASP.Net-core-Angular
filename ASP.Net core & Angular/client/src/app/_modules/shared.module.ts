@@ -1,3 +1,5 @@
+import { FileUploader, FileUploadModule } from 'ng2-file-upload';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastrModule } from 'ngx-toastr';
@@ -14,12 +16,17 @@ import {NgxGalleryModule} from '@kolkov/ngx-gallery';
       positionClass: 'toast-bottom-right'
     }),
     NgxGalleryModule,
+    NgxSpinnerModule,
+    FileUploadModule,
+    
   ],
   exports:[
     BsDropdownModule,
     ToastrModule,
     TabsModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    NgxSpinnerModule,
+    FileUploadModule
   ]
 })
 export class SharedModule { }

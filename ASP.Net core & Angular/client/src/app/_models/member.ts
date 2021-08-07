@@ -4,6 +4,8 @@ export interface Member {
     id: number;
     userName: string;
     created: Date;
+    photoUrl: string;
+    age: number;
     lastActive: Date;
     dayOfBirth: Date;
     introduction: string;
