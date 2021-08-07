@@ -1,7 +1,7 @@
 <div class="row" *ngIf="member">
-    <div class="col-4" *ngFor="let photo of member.photos">
+    <div class="col-4" >
         <div class="card">
-            <img src="{{photo.url}}" alt="{{member.userName}}"class="card-img-top img-thumbnail">
+            <img src="{{member.photoUrl}}" alt="{{member.userName}}"class="card-img-top img-thumbnail">
           
             <div class="card-body">
                 <div>
@@ -10,15 +10,15 @@
                 </div>
                 <div>
                     <strong>Age:</strong>
-                    <p>{{member.dayOfBirth}}</p>
+                    <p>{{member.age}}</p>
                 </div>
                 <div>
                     <strong>Last Active:</strong>
-                    <p>{{member.lastActive}}</p>
+                    <p>{{member.lastActive| date}}</p>
                 </div>
                 <div>
                     <strong>Member since:</strong>
-                    <p>{{member.created}}</p>
+                    <p>{{member.created| date}}</p>
                 </div>
             </div>
             <div class="card-footer">
