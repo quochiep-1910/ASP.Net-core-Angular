@@ -19,13 +19,15 @@ namespace API.Extensions
 
             //Add DI
             services.AddScoped<ITokenService, TokenService>();
-            services.AddScoped<IUserRepository,UserRepository>();
-            services.AddScoped<IPhotoService,PhotoService>();
-
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ILikesRepository, LikesRepository>();
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<LogUserActivity>();
             //Add AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
 
-              //connect Database
+            //connect Database
             services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DatingWebDb")));
 

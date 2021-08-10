@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.DTO;
 using API.Entities;
+using API.Helpers;
 using API.Interfaces.IRepository;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -29,7 +30,7 @@ namespace API.Data.Repository
                  .SingleOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<MemberDTO>> GetMembersAsync()
+         public async Task<IEnumerable<MemberDTO>> GetMembersAsync()
         {
             return await _context.Users
                 .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)

@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PreventUnsavedChangedGuard } from './_guards/prevent-unsaved-changed.guard';
+import { MemberDetailedResolver } from './_resolvers/member-detailed.resolver';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children:[
       { path: 'members', component: MemberListComponent },
-      { path: 'members/:username', component: MemberDetailComponent },
+      { path: 'members/:username', component: MemberDetailComponent,resolve: {member: MemberDetailedResolver}},
       { path: 'member/edit', component: MemberEditComponent, canDeactivate:[PreventUnsavedChangedGuard] },
       { path: 'lists', component: ListsComponent },
       { path: 'messages', component: MessagesComponent },

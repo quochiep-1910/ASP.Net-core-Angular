@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using API.DTO;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using API.Interfaces.IRepository;
 using AutoMapper;
@@ -78,23 +79,25 @@ namespace API.Controllers
 
             return BadRequest("Lỗi Thêm ảnh");
         }
+
         [HttpPut("set-main-photo/{photoId}")]
         public async Task<ActionResult> SetMainPhoto(int photoId)
         {
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
-            var photo = user.Photos.FirstOrDefault(x=>x.Id==photoId);
-            if(photo.IsMain)return BadRequest("Đây đã là ảnh chính của bạn ");
+            var photo = user.Photos.FirstOrDefault(x => x.Id == photoId);
+            if (photo.IsMain) return BadRequest("Đây đã là ảnh chính của bạn ");
 
             //Chuyển ảnh hiện tại thành false
-            var currentMain = user.Photos.FirstOrDefault(x=>x.IsMain);
-            if(currentMain!=null) currentMain.IsMain=false;
+            var currentMain = user.Photos.FirstOrDefault(x => x.IsMain);
+            if (currentMain != null) currentMain.IsMain = false;
 
-            photo.IsMain=true;
-            
-            if(await _userRepository.SaveAllAsync()) return NoContent();
+            photo.IsMain = true;
+
+            if (await _userRepository.SaveAllAsync()) return NoContent();
             return BadRequest("Cập nhập ảnh chính thất bại");
-         }
-          [HttpDelete("delete-photo/{photoId}")]
+        }
+
+        [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {
             var user = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
@@ -118,5 +121,4 @@ namespace API.Controllers
             return BadRequest("Xoá ảnh thất bại");
         }
     }
-
 }
