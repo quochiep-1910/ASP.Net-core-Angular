@@ -30,14 +30,14 @@ namespace API.Data.Repository
 
             if (likesParams.Predicate == "liked")
             {
-                likes = likes.Where(like => like.SourceUserId == likesParams.UserId);
+                likes = likes.Where(like => like.UserId == likesParams.UserId);
                 users = likes.Select(like => like.LikedUser);
             }
 
             if (likesParams.Predicate == "likedBy")
             {
                 likes = likes.Where(like => like.LikedUserId == likesParams.UserId);
-                users = likes.Select(like => like.SourceUser);
+                users = likes.Select(like => like.User);
             }
 
             var likedUsers = users.Select(user => new LikeDTO

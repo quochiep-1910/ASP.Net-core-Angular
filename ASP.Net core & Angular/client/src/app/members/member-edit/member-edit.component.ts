@@ -1,9 +1,10 @@
+import { User } from 'src/app/_models/user';
 import { PreventUnsavedChangedGuard } from './../../_guards/prevent-unsaved-changed.guard';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs/operators';
 import { MembersService } from './../../_services/members.service';
 import { AccountService } from './../../_services/account.service';
-import { User } from './../../_models/user';
+
 import { Member } from './../../_models/member';
 import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -32,7 +33,7 @@ export class MemberEditComponent implements OnInit {
     this.loadMember()
   }
   loadMember() {
-    this.memberService.getMember(this.user.userName).subscribe(member => {
+    this.memberService.getMember(this.user.username).subscribe(member => {
       this.member = member;
     })
   }

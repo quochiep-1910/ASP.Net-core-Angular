@@ -1,3 +1,4 @@
+import { PresenceService } from './../../_services/presence.service';
 import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation }  from '@kolkov/ngx-gallery';
 import { MembersService } from './../../_services/members.service';
 import { Member } from './../../_models/member';
@@ -22,7 +23,7 @@ export class MemberDetailComponent implements OnInit {
 
   activeTab: TabDirective;
   messages: Message[] = [];
-  constructor(private memberService: MembersService, private route: ActivatedRoute,
+  constructor(public presence:PresenceService, private route: ActivatedRoute,
     private messageService: MessageService) { }
     ngOnInit(): void {
       this.route.data.subscribe(data => {

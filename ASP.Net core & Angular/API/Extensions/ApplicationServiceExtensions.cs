@@ -4,6 +4,7 @@ using API.Helpers;
 using API.Interfaces;
 using API.Interfaces.IRepository;
 using API.Services;
+using API.SignaIR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,9 @@ namespace API.Extensions
             //connect Database
             services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString("DatingWebDb")));
+
+            //SignIR
+            services.AddSingleton<PresenceTracker>();
 
             return services;
         }

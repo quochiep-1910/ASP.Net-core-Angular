@@ -31,13 +31,15 @@ namespace API.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+
         public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers()
         {
             var users = await _userRepository.GetMembersAsync();
 
             return Ok(users);
         }
-
+        [Authorize(Roles = "Member")]
         [HttpGet("{username}", Name = "GetUsers")]
         public async Task<ActionResult<MemberDTO>> GetUsers(string username)
         {
