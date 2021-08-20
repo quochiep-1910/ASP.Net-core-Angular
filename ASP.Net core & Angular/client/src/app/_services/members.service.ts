@@ -1,10 +1,13 @@
-import { Photo } from './../_models/photo';
+import { Message } from 'src/app/_models/message';
+import { User } from 'src/app/_models/user';
+import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+
 import { map } from 'rxjs/operators';
 import { Member } from './../_models/member';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { of, BehaviorSubject } from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 
 
@@ -17,6 +20,7 @@ export class MembersService {
   constructor(private http: HttpClient) {
 
   }
+
   getMembers() {
     if (this.members.length > 0) return of(this.members); //load lại trang không cần GET API
     return this.http.get<Member[]>(this.baseUrl + 'user').pipe(
@@ -28,7 +32,7 @@ export class MembersService {
   }
 
   getMember(username: string) {
-    const member = this.members.find(x => x.userName === username);
+    const member = this.members.find(x => x.username === username);
     if (member !== undefined) return of(member);
     return this.http.get<Member>(this.baseUrl + 'user/' + username);
   }

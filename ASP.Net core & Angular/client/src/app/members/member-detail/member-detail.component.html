@@ -1,15 +1,15 @@
 <div class="row">
     <div class="col-4">
         <div class="card">
-            <img src="{{member.photoUrl}}" alt="{{member.userName}}" class="card-img-top img-thumbnail">
+            <img src="{{member.photoUrl}}" alt="{{member.username}}" class="card-img-top img-thumbnail">
 
             <div class="card-body">
-                <div class="mb-2" *ngIf="(presence.onlineUsers$ | async).includes(member.userName)" >
+                <div class="mb-2" *ngIf="(presence.onlineUsers$ | async).includes(member.username)" >
                     <i class="fa fa-user-circle text-success"></i> Online now
                 </div>
                 <div>
                     <strong>Name:</strong>
-                    <p>{{member.userName}}</p>
+                    <p>{{member.username}}</p>
                 </div>
                 <div>
                     <strong>Age:</strong>
@@ -34,7 +34,7 @@
     </div>
     <div class="col-8">
         <tabset class="member-tabset" #memberTabs>
-            <tab heading='About {{member.userName}}' (selectTab)="onTabActivated($event)">
+            <tab heading='About {{member.username}}' (selectTab)="onTabActivated($event)">
                 <h4>Description</h4>
                 <p>{{member.introduction}}</p>
                 <h4>Looking for</h4>
@@ -49,7 +49,7 @@
                     style="display: inline-block; margin-bottom: 20px;"></ngx-gallery>
             </tab>
             <tab heading='Messages' (selectTab)="onTabActivated($event)">
-                <app-member-messages [messages]="messages" [username]="member.userName"></app-member-messages>
+                <app-member-messages  [username]="member.username"></app-member-messages>
             </tab>
         </tabset>
     </div>

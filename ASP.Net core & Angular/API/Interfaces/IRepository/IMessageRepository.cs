@@ -20,6 +20,10 @@ namespace API.Interfaces.IRepository
 
         Task<IEnumerable<MessageDTO>> GetMessageThread(string currentUsername, string recipientUsername);
 
+        void AddGroup(Group group);
+        void RemoveConnection(Connection connection);
+        Task<Connection> GetConnection(string connectionId);
+        Task<Group> GetMessageGroup(string groupName);
         Task<bool> SaveAllAsync();
     }
 }

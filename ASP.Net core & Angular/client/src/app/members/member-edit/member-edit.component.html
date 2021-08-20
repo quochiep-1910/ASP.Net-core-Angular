@@ -9,7 +9,7 @@
     </div>
     <div class="col-4">
         <div class="card">
-            <img src="{{member.photoUrl}}" alt="{{member.userName}}" 
+            <img src="{{member.photoUrl}}" alt="{{member.username}}" 
                 class="card-img-top img-thumbnail">
             <div class="card-body">
                 <div>
@@ -37,7 +37,7 @@
 
     <div class="col-8">
         <tabset class="member-tabset">
-            <tab heading='About {{member.userName}}'>
+            <tab heading='About {{member.username}}'>
                 <form #editForm="ngForm" id="editForm" (ngSubmit)="updateMember()">
                     <h4>Description</h4>
                     <textarea class="form-control" [(ngModel)]="member.introduction" name="introduction" rows="6"></textarea>

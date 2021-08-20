@@ -40,11 +40,11 @@ namespace API.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDTO>> Register(RegisterDTO register)
         {
-            if (await UserExists(register.UserName)) return BadRequest("Tên người dùng đã được sử dụng ");
+            if (await UserExists(register.Username)) return BadRequest("Tên người dùng đã được sử dụng ");
 
             var user = _mapper.Map<AppUser>(register);
 
-            user.UserName = register.UserName.ToLower();
+            user.UserName = register.Username.ToLower();
 
             var result = await _userManager.CreateAsync(user, register.Password);
 
@@ -56,7 +56,7 @@ namespace API.Controllers
 
             return new UserDTO
             {
-                UserName = user.UserName,
+                Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
             };
         }
@@ -67,7 +67,7 @@ namespace API.Controllers
         {
             var user = await _userManager.Users
                   .Include(p => p.Photos)
-                  .SingleOrDefaultAsync(x => x.UserName == login.UserName.ToLower());
+                  .SingleOrDefaultAsync(x => x.UserName == login.Username.ToLower());
 
             if (user == null) return Unauthorized("Tên sử dụng không hợp lệ");
 
@@ -78,7 +78,7 @@ namespace API.Controllers
 
             return new UserDTO
             {
-                UserName = user.UserName,
+                Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
                 PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url
             };
